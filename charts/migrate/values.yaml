@@ -1,0 +1,10 @@
+image:
+  repository: busybox
+  tag: "1.36"
+command:
+  - /bin/sh
+  - -c
+  - echo "running migrations" && sleep 2 && echo "done"
+hook:
+  weight: "-5"
+  deletePolicy: before-hook-creation,hook-succeeded

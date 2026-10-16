@@ -1,0 +1,29 @@
+# Lab overrides — like environments/prod/terraform.tfvars (small, local cluster).
+webapp:
+  enabled: true
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+  ingress:
+    enabled: false
+  config:
+    APP_ENV: lab
+    LOG_LEVEL: debug
+
+postgresql:
+  enabled: true
+  persistence:
+    enabled: false
+  auth:
+    postgresPassword: lab-only-not-secret
+
+worker:
+  enabled: true
+  replicaCount: 1
+
+cronjob:
+  enabled: true
+  schedule: "*/30 * * * *"
+
+migrate:
+  enabled: true

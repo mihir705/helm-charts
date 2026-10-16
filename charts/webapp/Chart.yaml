@@ -1,0 +1,13 @@
+apiVersion: v2
+name: webapp
+description: Generic 12-factor web app (Deployment, Service, Ingress, HPA, PDB)
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - web
+  - http
+maintainers:
+  - name: mihir
+sources:
+  - https://github.com/mihir705/helm-charts

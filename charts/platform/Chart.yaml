@@ -1,0 +1,27 @@
+apiVersion: v2
+name: platform
+description: Umbrella chart — webapp + postgresql + worker + cronjob (compose like terraform env)
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+dependencies:
+  - name: webapp
+    version: 1.0.0
+    repository: "file://../webapp"
+    condition: webapp.enabled
+  - name: postgresql
+    version: 1.0.0
+    repository: "file://../postgresql"
+    condition: postgresql.enabled
+  - name: worker
+    version: 1.0.0
+    repository: "file://../worker"
+    condition: worker.enabled
+  - name: cronjob
+    version: 1.0.0
+    repository: "file://../cronjob"
+    condition: cronjob.enabled
+  - name: migrate
+    version: 1.0.0
+    repository: "file://../migrate"
+    condition: migrate.enabled

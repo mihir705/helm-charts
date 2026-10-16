@@ -1,0 +1,20 @@
+replicaCount: 1
+image:
+  repository: busybox
+  tag: "1.36"
+  pullPolicy: IfNotPresent
+command:
+  - /bin/sh
+  - -c
+  - while true; do echo "$(date) worker tick"; sleep 30; done
+env:
+  QUEUE_NAME: app-jobs
+resources:
+  requests:
+    cpu: 20m
+    memory: 32Mi
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 70

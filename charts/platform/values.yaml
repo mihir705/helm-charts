@@ -1,0 +1,21 @@
+# Omit / disable any subchart you are not managing — same idea as terraform.tfvars.
+webapp:
+  enabled: true
+  replicaCount: 2
+  config:
+    APP_ENV: lab
+    DATABASE_HOST: "{{ .Release.Name }}-postgresql"
+
+postgresql:
+  enabled: true
+  persistence:
+    enabled: false
+
+worker:
+  enabled: true
+
+cronjob:
+  enabled: false
+
+migrate:
+  enabled: true

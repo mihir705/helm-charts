@@ -1,0 +1,51 @@
+# Production overrides — pair with EKS/AKS/GKE from terraform-aws / azure / gcp.
+webapp:
+  enabled: true
+  replicaCount: 3
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 12
+    targetCPUUtilizationPercentage: 60
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - host: app.example.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: app-tls
+        hosts:
+          - app.example.com
+  config:
+    APP_ENV: prod
+    LOG_LEVEL: info
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: "1"
+      memory: 512Mi
+
+postgresql:
+  enabled: false
+  # Prefer terraform RDS / Cloud SQL / Flexible Server in prod.
+  # Point webapp env at the managed endpoint instead.
+
+worker:
+  enabled: true
+  replicaCount: 2
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 8
+
+cronjob:
+  enabled: true
+  schedule: "0 * * * *"
+
+migrate:
+  enabled: true

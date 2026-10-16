@@ -1,0 +1,11 @@
+schedule: "*/15 * * * *"
+successfulJobsHistoryLimit: 3
+failedJobsHistoryLimit: 1
+concurrencyPolicy: Forbid
+image:
+  repository: busybox
+  tag: "1.36"
+command:
+  - /bin/sh
+  - -c
+  - echo "cron ran at $(date)"

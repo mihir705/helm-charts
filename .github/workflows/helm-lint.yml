@@ -1,0 +1,24 @@
+---
+name: helm-lint
+on:
+  push:
+  pull_request:
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.16.2
+      - name: Lint charts
+        run: |
+          for c in charts/webapp charts/postgresql charts/worker charts/cronjob charts/migrate; do
+            helm lint "$c"
+            helm template test "$c" >/dev/null
+          done
+      - name: Lint umbrella
+        run: |
+          helm dependency update charts/platform
+          helm lint charts/platform -f environments/lab/values.yaml
+          helm template platform charts/platform -f environments/lab/values.yaml >/dev/null
